@@ -37,9 +37,9 @@ export class ClientesComponent implements OnInit {
             `Cliente ${cliente.nombre} eliminado con éxito`,
             'success'
           )
-        })    
+        }); 
       }
-    })
+    });
   }
 
 }

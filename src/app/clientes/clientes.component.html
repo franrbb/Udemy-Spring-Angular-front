@@ -24,6 +24,7 @@
                     <td>{{ cliente.email }}</td>
                     <td>{{ cliente.createAt }}</td>
                     <td><button class="btn btn-warning text-white" [routerLink]="['/clientes/form/', cliente.id]">Editar</button></td>
+                    <td><button class="btn btn-danger text-white" (click)="delete(cliente)">Eliminar</button></td>
                 </tr>
             </tbody>
         </table>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import Swal from 'sweetalert2';
@@ -14,9 +14,10 @@ export class FormComponent implements OnInit {
   cliente: Cliente = new Cliente();
   titulo: string = 'Crear cliente';
 
-  constructor(private _clienteService: ClienteService, private router: Router) { }
+  constructor(private _clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.cargarCliente();
   }
 
   create(): void {
@@ -29,6 +30,28 @@ export class FormComponent implements OnInit {
       })
     });
     console.log(this.cliente);
+  }
+
+  cargarCliente(): void{
+    this.activatedRoute.params.subscribe( params => {
+      let id = params['id'];
+      if(id){
+        this._clienteService.getCliente(id).subscribe( (cliente) => {
+          this.cliente = cliente;
+        })
+      }
+    })
+  }
+
+  update(): void{
+    this._clienteService.update(this.cliente).subscribe(resp => {
+      this.router.navigate(['/clientes']);
+      Swal.fire({
+        title: 'Cliente actualizado',
+        text: `Cliente ${resp.nombre} actualizado con éxito`,
+        icon: 'success'
+      })
+    })
   }
 
 }

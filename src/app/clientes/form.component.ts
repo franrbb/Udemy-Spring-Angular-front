@@ -13,6 +13,7 @@ export class FormComponent implements OnInit {
 
   cliente: Cliente = new Cliente();
   titulo: string = 'Crear cliente';
+  errores: String[];
 
   constructor(private _clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -21,14 +22,22 @@ export class FormComponent implements OnInit {
   }
 
   create(): void {
-    this._clienteService.create(this.cliente).subscribe( resp => {
-      this.router.navigate(['/clientes']);
-      Swal.fire({
-        title: 'Nuevo cliente',
-        text: `El cliente ${resp.email} ha sido creado con éxito`,
-        icon: 'success'
-      });
-    });
+    this._clienteService.create(this.cliente)
+    .subscribe(
+        resp => {
+          this.router.navigate(['/clientes']);
+          Swal.fire({
+            title: 'Nuevo cliente',
+            text: `El cliente ${resp.email} ha sido creado con éxito`,
+            icon: 'success'
+          });
+        },
+        err => {
+          this.errores = err.error.errors as string[];
+          console.log("Código de error desde el backend: " + err.status);
+          console.log(this.errores);
+        }
+      );
     console.log(this.cliente);
   }
 
@@ -44,14 +53,21 @@ export class FormComponent implements OnInit {
   }
 
   update(): void{
-    this._clienteService.update(this.cliente).subscribe(resp => {
-      this.router.navigate(['/clientes']);
-      Swal.fire({
-        title: 'Cliente actualizado',
-        text: `${resp.mensaje}: ${resp.cliente.email}`,
-        icon: 'success'
-      });
-    });
+    this._clienteService.update(this.cliente)
+    .subscribe(
+      resp => {
+        this.router.navigate(['/clientes']);
+        Swal.fire({
+          title: 'Cliente actualizado',
+          text: `${resp.mensaje}: ${resp.cliente.email}`,
+          icon: 'success'
+        });
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.log("Código de error desde el backend: " + err.status);
+      }
+    );
   }
 
 }

@@ -23,6 +23,11 @@ export class ClienteService {
     .pipe(
         (map((resp:any) => resp.cliente as Cliente)),
         (catchError( e => {
+
+          if(e.status == 400){
+            return throwError(e);
+          }
+
           Swal.fire({
             title: e.error.mensaje,
             text: e.error.error,
@@ -48,6 +53,11 @@ export class ClienteService {
   update(cliente: Cliente): Observable<any>{
     return this.http.put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders})
     .pipe(catchError( e => {
+
+      if(e.status == 400){
+        return throwError(e);
+      }
+
       Swal.fire({
         title: e.error.mensaje,
         text: e.error.error,

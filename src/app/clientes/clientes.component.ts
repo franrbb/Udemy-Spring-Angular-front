@@ -29,14 +29,14 @@ export class ClientesComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, eliminar!'
     }).then((result) => {
-      if (result.isConfirmed) {
+      if (result.value) {
         this.clienteService.delete(cliente.id).subscribe(resp => {
           this.clientes = this.clientes.filter(cli => cli !== cliente);
           Swal.fire(
             'Cliente eliminado!',
             `Cliente ${cliente.nombre} eliminado con éxito`,
             'success'
-          )
+          );
         }); 
       }
     });

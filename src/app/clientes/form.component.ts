@@ -25,9 +25,9 @@ export class FormComponent implements OnInit {
       this.router.navigate(['/clientes']);
       Swal.fire({
         title: 'Nuevo cliente',
-        text: `Cliente ${resp.nombre} creado con éxito`,
+        text: `El cliente ${resp.email} ha sido creado con éxito`,
         icon: 'success'
-      })
+      });
     });
     console.log(this.cliente);
   }
@@ -38,9 +38,9 @@ export class FormComponent implements OnInit {
       if(id){
         this._clienteService.getCliente(id).subscribe( (cliente) => {
           this.cliente = cliente;
-        })
+        });
       }
-    })
+    });
   }
 
   update(): void{
@@ -48,10 +48,10 @@ export class FormComponent implements OnInit {
       this.router.navigate(['/clientes']);
       Swal.fire({
         title: 'Cliente actualizado',
-        text: `Cliente ${resp.nombre} actualizado con éxito`,
+        text: `${resp.mensaje}: ${resp.cliente.email}`,
         icon: 'success'
-      })
-    })
+      });
+    });
   }
 
 }

@@ -86,4 +86,25 @@ export class ClienteService {
     }));
   }
 
+  subirFoto(archivo: File, id){
+    let formData = new FormData();
+    formData.append("archivo", archivo);
+    formData.append("id", id);
+
+    return this.http.post(`${this.urlEndPoint}/upload`, formData)
+    .pipe(
+      map(( resp: any ) => {
+        resp.cliente as Cliente
+      }),
+      catchError( e => {
+        Swal.fire({
+          title: e.error.mensaje,
+          text: e.error.error,
+          icon: 'error'
+        });
+        return throwError(e);
+      }
+    ))
+  }
+
 }

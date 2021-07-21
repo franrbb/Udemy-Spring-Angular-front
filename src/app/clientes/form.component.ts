@@ -57,11 +57,11 @@ export class FormComponent implements OnInit {
     .subscribe(
       resp => {
         this.router.navigate(['/clientes']);
-        Swal.fire({
+       /* Swal.fire({
           title: 'Cliente actualizado',
           text: `${resp.mensaje}: ${resp.cliente.email}`,
           icon: 'success'
-        });
+        });*/
       },
       err => {
         this.errores = err.error.errors as string[];

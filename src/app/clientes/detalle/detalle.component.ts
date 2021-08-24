@@ -9,7 +9,7 @@ import { DetalleService } from './detalle.service';
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
-  styles: []
+  styleUrls: ['./detalle.component.css']
 })
 export class DetalleComponent implements OnInit {
 

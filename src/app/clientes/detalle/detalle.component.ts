@@ -51,6 +51,8 @@ export class DetalleComponent implements OnInit {
         }else if(event.type === HttpEventType.Response){
           let response: any = event.body;
           this.cliente = response.cliente as Cliente;
+
+          this.detalleService.notificarUpload.emit(this.cliente);
           Swal.fire({
             title: 'La foto se ha subido correctamente',
             text: `La foto ${this.cliente.foto} se ha subido con éxito`,

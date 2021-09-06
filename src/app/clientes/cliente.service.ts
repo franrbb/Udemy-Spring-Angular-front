@@ -6,6 +6,7 @@ import { _throw as throwError } from 'rxjs/observable/throw';
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Region } from './region';
 
 @Injectable()
 export class ClienteService {
@@ -14,6 +15,9 @@ export class ClienteService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  getRegiones(): Observable<Region[]>{
+    return this.http.get<Region[]>(this.urlEndPoint + '/regiones');
+  }
   getClientes(page: number): Observable<any> {
     return this.http.get(this.urlEndPoint + '/page/' + page)
     .pipe(

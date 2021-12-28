@@ -16,6 +16,7 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { DetalleService } from './clientes/detalle/detalle.service';
 import { LoginComponent } from './usuarios/login.component';
+import { AuthService } from './usuarios/auth.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/clientes', pathMatch: 'full'},
@@ -47,7 +48,8 @@ const routes: Routes = [
   ],
   providers: [
     ClienteService,
-    DetalleService
+    DetalleService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

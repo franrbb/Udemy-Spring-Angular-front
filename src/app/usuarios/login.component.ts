@@ -33,11 +33,17 @@ export class LoginComponent implements OnInit {
 
     this._authService.login(this.usuario).subscribe( resp => {
       console.log(resp);
-      let payload = JSON.parse(atob(resp.access_token.split(".")[1]));
+
+      this._authService.guardarUsuario(resp.access_token);
+      this._authService.guardarToken(resp.access_token);
+      let usuario = this._authService.usuario;
+
+      console.log(usuario.username);
+
       this.router.navigate(['/clientes']);
       Swal.fire({
         title: 'Login',
-        text: `Hola ${payload.user_name}, has iniciado sesión con éxito`,
+        text: `Hola ${usuario.username}, has iniciado sesión con éxito`,
         icon: 'success'
       });
     })
